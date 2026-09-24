@@ -23,11 +23,35 @@ export const WorkoutProvider = ({
     const [saved, setSaved] = useState<Workout[]>([]);
 
     const addToPlan = (workout: Workout) => {
-        setPlan((previous) => [...previous, workout]);
+        setPlan((previous) => {
+            if (previous.length >= 5) {
+                return previous;
+            }
+
+            const alreadyExists = previous.some(
+                (item) => item.id === workout.id
+            );
+
+            if (alreadyExists) {
+                return previous;
+            }
+
+            return [...previous, workout];
+        });
     };
 
     const saveWorkout = (workout: Workout) => {
-        setSaved((previous) => [...previous, workout]);
+        setSaved((previous) => {
+            const alreadyExists = previous.some(
+                (item) => item.id === workout.id
+            );
+
+            if (alreadyExists) {
+                return previous;
+            }
+
+            return [...previous, workout];
+        });
     };
 
     return (

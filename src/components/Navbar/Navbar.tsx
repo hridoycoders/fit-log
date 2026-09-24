@@ -1,7 +1,10 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
+import { useWorkout } from "@/context/WorkoutContext";
 
 const Navbar = () => {
+    const { plan, saved } = useWorkout();
     return (
         <nav className="sticky top-0 z-50 border-b border-white/10 bg-black">
             <div className="container mx-auto flex min-h-20 items-center justify-between px-4">
@@ -32,11 +35,11 @@ const Navbar = () => {
                 {/* Badges */}
                 <div className="flex items-center gap-2">
                     <Link href="/my-plan" className="rounded-full bg-[#ccff00] px-4 py-2 text-sm font-bold text-black">
-                        Plan <span>0</span>
+                        Plan <span>{plan.length}</span>
                     </Link>
 
                     <Link href="/my-plan" className="rounded-full border border-[#ccff00] px-4 py-2 text-sm font-bold text-white">
-                        Saved <span>0</span>
+                        Saved <span>{saved.length}</span>
                     </Link>
                 </div>
 

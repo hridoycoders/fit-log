@@ -1,11 +1,14 @@
+"use client"
 import Image from "next/image";
 import { Workout } from "@/types/fitlog";
+import { useWorkout } from "@/context/WorkoutContext";
 
 interface WorkoutDetailsProps {
     workout: Workout;
 }
 
 const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
+    const { addToPlan, saveWorkout } = useWorkout();
     return (
         <main className="min-h-screen bg-black px-4 py-12 md:py-16">
             <div className="container mx-auto">
@@ -111,11 +114,17 @@ const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
 
                         {/* Actions */}
                         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                            <button className="bg-[#ccff00] px-6 py-3 font-bold uppercase text-black">
-                                Add to Today&apos;s Plan
+                            <button
+                                onClick={() => addToPlan(workout)}
+                                className="bg-[#ccff00] px-6 py-3 font-bold uppercase text-black"
+                            >
+                                Add to Today's Plan
                             </button>
 
-                            <button className="border border-[#ccff00] px-6 py-3 font-bold uppercase text-white">
+                            <button
+                                onClick={() => saveWorkout(workout)}
+                                className="border border-[#ccff00] px-6 py-3 font-bold uppercase text-white"
+                            >
                                 Save for Later
                             </button>
                         </div>
