@@ -8,8 +8,7 @@ interface WorkoutCardProps {
 
 const WorkoutCard = ({ workout }: WorkoutCardProps) => {
     return (
-        <Link
-            href={`/workout/${workout.id}`}
+        <Link href={`/workout/${workout.id}`}
             className="group overflow-hidden border border-white/10 bg-[#111] transition hover:border-[#ccff00] rounded-2xl">
             {/* Image */}
             <div className="relative h-56 w-full">
