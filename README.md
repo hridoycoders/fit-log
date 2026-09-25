@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FitLog
 
-## Getting Started
+FitLog is a modern workout library and daily workout planning application built with **Next.js**. Users can browse workouts, view workout details, add workouts to today's plan, save workouts for later, and manage their daily workout routine.
 
-First, run the development server:
+## 🚀 Live Project
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Live Demo:** Add your deployed project link here.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* DaisyUI
+* React Toastify
+* Context API
+* REST API
+* LocalStorage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+### 🏋️ Workout Library
 
-To learn more about Next.js, take a look at the following resources:
+* Browse available workouts
+* View workout category and equipment
+* See duration, calories, and rating
+* Responsive workout cards
+* Click any workout to view details
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 📋 Workout Details
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each workout has a dedicated details page containing:
 
-## Deploy on Vercel
+* Workout name
+* Description
+* Category
+* Equipment
+* Difficulty
+* Sets
+* Reps
+* Duration
+* Calories burned
+* Rating
+* Workout instructions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📝 Today's Plan
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Users can create their daily workout plan.
+
+* Add workouts to today's plan
+* Maximum 5 workouts can be added
+* View planned workouts
+* Mark workouts as done
+* Remove workouts
+* View workout details
+
+### ❤️ Saved Workouts
+
+Users can save workouts for later.
+
+* Save favorite workouts
+* View saved workouts
+* Remove saved workouts
+* Manage saved workouts from My Plan
+
+### 🔄 Sorting
+
+Workouts can be sorted by:
+
+* Duration
+* Calories
+* Rating
+
+### 🔔 Toast Notifications
+
+Toast notifications provide feedback when users:
+
+* Add a workout
+* Save a workout
+* Remove a workout
+* Mark a workout as done
+* Try to add more than 5 workouts
+
+### 💾 LocalStorage Persistence
+
+Workout plans and saved workouts are stored in **LocalStorage**, so the data remains available even after refreshing the browser.
+
+### 📱 Responsive Design
+
+FitLog is responsive and works across:
+
+* Mobile
+* Tablet
+* Desktop
+
+### ⚡ Additional Features
+
+* Loading state while data is being fetched
+* Custom 404 page
+* Responsive navigation
+* REST API integration
+* Context API state management
+
+## 🔗 API
+
+### All Workouts
+
+`https://api.abcz.workers.dev/api/fitlog`
+
+### Workout Details
+
+`https://api.abcz.workers.dev/api/fitlog/:id`
+
+## 📂 Project Structure
+
+The project uses the **Next.js App Router** with reusable React components.
+
+Context API is used to manage workout plans and saved workouts.
+
+The application fetches workout information from a REST API and stores user selections in LocalStorage.
+
+## 🎯 Project Purpose
+
+This project was built as part of the **Programming Hero FitLog Assignment**.
+
+The main goal was to build a responsive workout library and workout planning application using modern web development technologies.
+
+## 👨‍💻 Developer
+
+**Hridoy Ahmed**
+
+Aspiring Web Developer
+CST Student — Bogura Polytechnic Institute
+
+---
+
+### 📌 Assignment Highlights
+
+* Responsive UI
+* Workout library
+* Workout details page
+* Today's workout plan
+* Saved workouts
+* Sorting
+* Mark as Done
+* Remove workout
+* LocalStorage persistence
+* Loading state
+* Custom 404 page
+* Toast notifications
+* Maximum 5 workouts in today's plan
