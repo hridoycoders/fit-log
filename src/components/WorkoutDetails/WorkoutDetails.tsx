@@ -2,13 +2,17 @@
 import Image from "next/image";
 import { Workout } from "@/types/fitlog";
 import { useWorkout } from "@/context/WorkoutContext";
+import { toast } from "react-toastify";
 
 interface WorkoutDetailsProps {
     workout: Workout;
 }
 
 const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
-    const { addToPlan, saveWorkout } = useWorkout();
+     const { plan, saved, addToPlan, saveWorkout } = useWorkout();
+    const isAdded = plan.some((item) => item.id === workout.id);
+    const isSaved = saved.some((item) => item.id === workout.id);
+   
     return (
         <main className="min-h-screen bg-black px-4 py-12 md:py-16">
             <div className="container mx-auto">
@@ -112,20 +116,36 @@ const WorkoutDetails = ({ workout }: WorkoutDetailsProps) => {
                             </ol>
                         </div>
 
-                        {/* Actions */}
+                        {/* plan and save btn */}
                         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                             <button
-                                onClick={() => addToPlan(workout)}
+                                onClick={() => {
+                                    if (isAdded) {
+                                        toast.warning(`${workout.name} is already in today's plan`);
+                                        return;
+                                    }
+
+                                    addToPlan(workout);
+                                    toast.success(`${workout.name} added to today's plan`);
+                                }}
                                 className="bg-[#ccff00] px-6 py-3 font-bold uppercase text-black"
                             >
-                                Add to Today's Plan
+                                {isAdded ? "Added ✓" : "Add to Today's Plan"}
                             </button>
 
                             <button
-                                onClick={() => saveWorkout(workout)}
+                                onClick={() => {
+                                    if (isSaved) {
+                                        toast.warning(`${workout.name} is already saved`);
+                                        return;
+                                    }
+
+                                    saveWorkout(workout);
+                                    toast.success(`${workout.name} added to saved`);
+                                }}
                                 className="border border-[#ccff00] px-6 py-3 font-bold uppercase text-white"
                             >
-                                Save for Later
+                                {isSaved ? "Added ✓" : "Save for Later"}
                             </button>
                         </div>
                     </div>

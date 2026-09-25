@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+    createContext,
+    useContext,
+    useState,
+    useEffect,
+    ReactNode,
+} from "react";
 import { Workout } from "@/types/fitlog";
 
 interface WorkoutContextType {
@@ -23,6 +29,37 @@ export const WorkoutProvider = ({
 }) => {
     const [plan, setPlan] = useState<Workout[]>([]);
     const [saved, setSaved] = useState<Workout[]>([]);
+    const [hydrated, setHydrated] = useState(false);
+
+    // localStorage থেকে data load
+    useEffect(() => {
+        const storedPlan = localStorage.getItem("fitlog-plan");
+        const storedSaved = localStorage.getItem("fitlog-saved");
+
+        if (storedPlan) {
+            setPlan(JSON.parse(storedPlan));
+        }
+
+        if (storedSaved) {
+            setSaved(JSON.parse(storedSaved));
+        }
+
+        setHydrated(true);
+    }, []);
+
+    // Plan localStorage-এ save
+    useEffect(() => {
+        if (!hydrated) return;
+
+        localStorage.setItem("fitlog-plan", JSON.stringify(plan));
+    }, [plan, hydrated]);
+
+    // Saved localStorage-এ save
+    useEffect(() => {
+        if (!hydrated) return;
+
+        localStorage.setItem("fitlog-saved", JSON.stringify(saved));
+    }, [saved, hydrated]);
 
     const addToPlan = (workout: Workout) => {
         setPlan((previous) => {
@@ -55,6 +92,7 @@ export const WorkoutProvider = ({
             return [...previous, workout];
         });
     };
+
     const removeFromPlan = (id: number) => {
         setPlan((previous) =>
             previous.filter((workout) => workout.id !== id)
@@ -87,7 +125,9 @@ export const useWorkout = () => {
     const context = useContext(WorkoutContext);
 
     if (!context) {
-        throw new Error("useWorkout must be used inside WorkoutProvider");
+        throw new Error(
+            "useWorkout must be used inside WorkoutProvider"
+        );
     }
 
     return context;

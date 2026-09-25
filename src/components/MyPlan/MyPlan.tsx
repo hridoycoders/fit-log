@@ -4,14 +4,30 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useWorkout } from "@/context/WorkoutContext";
+import { toast } from "react-toastify";
 
 const MyPlan = () => {
     const { plan, saved, removeFromPlan, removeFromSaved } = useWorkout();
 
     const [activeTab, setActiveTab] = useState<"plan" | "saved">("plan");
     const [sortBy, setSortBy] = useState<string>("duration");
+    const workouts = [...(activeTab === "plan" ? plan : saved)].sort(
+        (a, b) => {
+            if (sortBy === "duration") {
+                return b.duration - a.duration;
+            }
 
-    const workouts = activeTab === "plan" ? plan : saved;
+            if (sortBy === "calories") {
+                return a.caloriesBurned - b.caloriesBurned;
+            }
+
+            if (sortBy === "rating") {
+                return b.rating - a.rating;
+            }
+
+            return 0;
+        }
+    );
 
     const totalMinutes = plan.reduce(
         (total, workout) => total + workout.duration,
@@ -95,10 +111,15 @@ const MyPlan = () => {
                 {workouts.length === 0 ? (
                     <div className="py-16 text-center">
                         <h2 className="text-xl font-bold uppercase text-white">
-                            Nothing Here Yet
+                            {activeTab === "plan"
+                                ? "No Workouts in Your Plan"
+                                : "No Saved Workouts"}
                         </h2>
+
                         <p className="mt-2 text-sm text-gray-400">
-                            Browse the library and add a lift to get today moving.
+                            {activeTab === "plan"
+                                ? "Add workouts from the library to build your plan."
+                                : "Save your favorite workouts to find them here."}
                         </p>
                         <Link
                             href="/"
@@ -167,10 +188,15 @@ const MyPlan = () => {
                                     {/* tap markdown btn  */}
                                     {activeTab === "plan" && (
                                         <button
-                                            onClick={() => removeFromPlan(workout.id)}
+                                            onClick={() => {
+                                                removeFromPlan(workout.id);
+
+                                                toast.success(`${workout.name} marked as done`);
+                                            }}
                                             className="flex items-center gap-1.5 rounded-full bg-[#ccff00] px-4 py-2 text-xs font-bold text-black transition hover:bg-[#b8e600]"
                                         >
-                                            <span>✓</span> Mark as Done
+                                            <span>✓</span>
+                                            Mark as Done
                                         </button>
                                     )}
 
@@ -178,8 +204,10 @@ const MyPlan = () => {
                                         onClick={() => {
                                             if (activeTab === "plan") {
                                                 removeFromPlan(workout.id);
+                                                toast.success(`${workout.name} removed from plan`);
                                             } else {
                                                 removeFromSaved(workout.id);
+                                                toast.success(`${workout.name} removed from saved`);
                                             }
                                         }}
                                         className="p-1 text-gray-400 transition hover:text-white"
