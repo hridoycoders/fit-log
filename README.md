@@ -4,8 +4,7 @@ FitLog is a modern workout library and daily workout planning application built 
 
 ## 🚀 Live Project
 
-**Live Demo:** Add your deployed project link here.
-
+**Live Demo:** https://fit-log-workout.vercel.app/
 ## 🛠️ Technologies Used
 
 * Next.js
@@ -15,7 +14,6 @@ FitLog is a modern workout library and daily workout planning application built 
 * DaisyUI
 * React Toastify
 * Context API
-* REST API
 * LocalStorage
 
 ## ✨ Key Features
